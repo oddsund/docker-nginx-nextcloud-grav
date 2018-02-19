@@ -10,7 +10,7 @@ To deploy this setup, edit the database password in db.env and run the following
 find . -type f | xargs sed -i 's/nextcloud\.example\.com/yourcloud\.yourdomain\.tld/g'
 find . -type f | xargs sed -i 's/www\.example\.com/www\.yourdomain\.tld/g'
 find . -type f | xargs sed -i 's/me@example\.com/youremail@maildomain\.com/g'
-find . -type f | xargs sed -i 's/example\.com/\.yourdomain\.tld/g'
+find . -type f | xargs sed -i 's/example\.com/yourdomain\.tld/g'
 docker-compose up
 ```
 
