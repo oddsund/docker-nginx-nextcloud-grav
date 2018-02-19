@@ -4,7 +4,7 @@ This is a setup with nextcloud and grav, exposed behind a nginx proxy with autom
 
 ## How to deploy
 
-To deploy this setup, run the following commands from the root folder;
+To deploy this setup, edit the database password in db.env and run the following commands from the root folder;
 
 ```[language=bash]
 find . -type f | xargs sed -i 's/nextcloud\.example\.com/yourcloud\.yourdomain\.tld/g'
