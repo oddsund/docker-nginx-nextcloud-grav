@@ -4,6 +4,7 @@ services:
   db:
     image: postgres
     restart: always
+    container_name: postgres-db
     volumes:
       - db:/var/lib/postgresql/data
     env_file:
@@ -19,6 +20,7 @@ services:
       - nextcloud:/var/www/html
       - vhost.d:/etc/nginx/vhost.d
     environment:
+      - HSTS=off
       - POSTGRES_HOST=db
       - VIRTUAL_HOST=nextcloud.example.com
       - VIRTUAL_PROTO=fastcgi
@@ -38,6 +40,7 @@ services:
     restart: always
     container_name: grav
     environment:
+      - HSTS=off
       - VIRTUAL_HOST=example.com,www.example.com
       - LETSENCRYPT_HOST=example.com,www.example.com
       - LETSENCRYPT_EMAIL=me@example.com
@@ -87,8 +90,10 @@ services:
     entrypoint: /usr/local/bin/docker-gen -notify-sighup nginx -watch -wait 5s:30s /etc/docker-gen/templates/nginx.tmpl /etc/nginx/conf.d/default.conf
 
   letsencrypt-companion:
-    image: jrcs/letsencrypt-nginx-proxy-companion
+    #image: jrcs/letsencrypt-nginx-proxy-companion
+    build: ./letsencrypt
     restart: always
+    container_name: letsencrypt
     volumes:
       - certs:/etc/nginx/certs
       - conf.d:/etc/nginx/conf.d
