@@ -75,7 +75,7 @@ services:
       - HSTS=off
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
-      - /opt/nginx.tmpl:/etc/docker-gen/templates/nginx.tmpl:ro
+      - ./nginx.tmpl:/etc/docker-gen/templates/nginx.tmpl:ro
       - certs:/etc/nginx/certs:ro
       - conf.d:/etc/nginx/conf.d
       - vhost.d:/etc/nginx/vhost.d:ro
