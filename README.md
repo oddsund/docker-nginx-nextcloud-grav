@@ -9,10 +9,10 @@ To deploy this setup, edit the database password in db.env and run the following
 ```[language=bash]
 mv fpmcron/nextcloud.example.com fpmcron/yourcloud.yourdomain.tld
 mv fpmcron/nextcloud.example.com_location fpmcron/yourcloud.yourdomain.tld_location
-find . -type f | xargs sed -i 's/nextcloud\.example\.com/yourcloud\.yourdomain\.tld/g'
-find . -type f | xargs sed -i 's/www\.example\.com/www\.yourdomain\.tld/g'
-find . -type f | xargs sed -i 's/me@example\.com/youremail@maildomain\.com/g'
-find . -type f | xargs sed -i 's/example\.com/yourdomain\.tld/g'
+find . -path ./.git -prune -o -type f -print | xargs sed -i 's/nextcloud\.example\.com/yourcloud\.yourdomain\.tld/g'
+find . -path ./.git -prune -o -type f -print | xargs sed -i 's/www\.example\.com/www\.yourdomain\.tld/g'
+find . -path ./.git -prune -o -type f -print | xargs sed -i 's/me@example\.com/youremail@maildomain\.com/g'
+find . -path ./.git -prune -o -type f -print | xargs sed -i 's/example\.com/yourdomain\.tld/g'
 docker-compose up
 ```
 
