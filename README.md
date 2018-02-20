@@ -14,6 +14,8 @@ find . -type f | xargs sed -i 's/example\.com/yourdomain\.tld/g'
 docker-compose up
 ```
 
+Also, for production, the ACME_CA_URI must environment variable should be removed from the docker-compose file. If you don't, correct certificates will not be issued.
+
 ## How to add services
 
 To add another service exposed through a port(e.g. via apache/nginx/lighttpd), follow the grav example.
