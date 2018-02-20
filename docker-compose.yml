@@ -52,6 +52,8 @@ services:
     build: ./proxy
     restart: always
     container_name: nginx
+    environment:
+      - HSTS=off
     ports:
       - 80:80
       - 443:443
@@ -69,6 +71,8 @@ services:
     restart: always
     image: jwilder/docker-gen
     container_name: nginx-gen
+    environment:
+      - HSTS=off
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
       - /opt/nginx.tmpl:/etc/docker-gen/templates/nginx.tmpl:ro
