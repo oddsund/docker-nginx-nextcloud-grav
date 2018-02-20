@@ -7,6 +7,8 @@ This is a setup with nextcloud and grav, exposed behind a nginx proxy with autom
 To deploy this setup, edit the database password in db.env and run the following commands from the root folder;
 
 ```[language=bash]
+mv fpmcron/nextcloud.example.com fpmcron/yourcloud.yourdomain.tld
+mv fpmcron/nextcloud.example.com_location fpmcron/yourcloud.yourdomain.tld_location
 find . -type f | xargs sed -i 's/nextcloud\.example\.com/yourcloud\.yourdomain\.tld/g'
 find . -type f | xargs sed -i 's/www\.example\.com/www\.yourdomain\.tld/g'
 find . -type f | xargs sed -i 's/me@example\.com/youremail@maildomain\.com/g'
