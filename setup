@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+
+SUBDCLOUD="" #ex. "cloud"
+SUBDWWW="" #ex. "www"
+DOMAINTLD="" #ex. "yourdomain\.tld"
+EMAIL="" #ex. "your@email.tld"
+while getopts c:w:d:e:h option
+do
+case "${option}"
+in
+c) SUBDCLOUD=${OPTARG//\./\\\.};;
+w) SUBDWWW=${OPTARG//\.//\\\.};;
+d) DOMAINTLD=${OPTARG//\./\\\.};;
+e) EMAIL=${OPTARG//\./\\\.};;
+h) echo "Usage: ./setup -d example.com -e me@example.com [-c mycloud] [-w www]"
+	echo "-d Domain for the site"
+	echo "-e Email address used for Lets Encrypt"
+	echo "-c Cloud subdomain"
+	echo "-w WWW subdomain"
+   exit;;
+esac
+done
+
+if [ -z "$SUBDCLOUD" ]; then
+        echo "No cloud subdomain given, assuming cloud."
+	SUBDCLOUD="cloud"
+fi
+
+if [ -z "$SUBDWWW" ]; then
+        echo "No www subdomain given, assuming www."
+	SUBDWWW="www"
+fi
+
+if [ -z "$DOMAINTLD" ]; then
+        echo "No domain given, aborting."
+	exit
+fi
+
+if [ -z "$EMAIL" ]; then
+        echo "No contact address given, aborting."
+	exit
+fi
+
+mv fpmcron/nextcloud.example.com fpmcron/$SUBDCLOUD.${DOMAINTLD//\\\./\.}
+mv fpmcron/nextcloud.example.com_location fpmcron/$SUBDCLOUD.${DOMAINTLD//\\\./\.}\_location
+find . -path ./.git -prune -o -type f -print | grep -vE "README|setup" | xargs sed -i "s/nextcloud\.example\.com/$SUBDCLOUD\.$DOMAINTLD/g"
+find . -path ./.git -prune -o -type f -print | grep -vE "README|setup" | xargs sed -i "s/www\.example\.com/$SUBDWWW\.$DOMAINTLD/g"
+find . -path ./.git -prune -o -type f -print | grep -vE "README|setup" | xargs sed -i "s/me@example\.com/$EMAIL/g"
+find . -path ./.git -prune -o -type f -print | grep -vE "README|setup" | xargs sed -i "s/example\.com/$DOMAINTLD/g"
+

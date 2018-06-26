@@ -7,16 +7,13 @@ This is a setup with nextcloud and grav, exposed behind a nginx proxy with autom
 To deploy this setup, edit the database password in db.env and run the following commands from the root folder;
 
 ```[language=bash]
-mv fpmcron/nextcloud.example.com fpmcron/yourcloud.yourdomain.tld
-mv fpmcron/nextcloud.example.com_location fpmcron/yourcloud.yourdomain.tld_location
-find . -path ./.git -prune -o -type f -print | xargs sed -i 's/nextcloud\.example\.com/yourcloud\.yourdomain\.tld/g'
-find . -path ./.git -prune -o -type f -print | xargs sed -i 's/www\.example\.com/www\.yourdomain\.tld/g'
-find . -path ./.git -prune -o -type f -print | xargs sed -i 's/me@example\.com/youremail@maildomain\.com/g'
-find . -path ./.git -prune -o -type f -print | xargs sed -i 's/example\.com/yourdomain\.tld/g'
+./setup -d example.com -e me@example.com
 docker-compose up
 ```
 
-Also, for production, the ACME_CA_URI must environment variable should be removed from the docker-compose file. If you don't, correct certificates will not be issued.
+You can also pass the cloud and blog subdomains via the -c and -w parameters.
+
+**For production**, the ACME_CA_URI must environment variable should be removed from the docker-compose file. If you don't, correct certificates will not be issued.
 
 ## How to add services
 
