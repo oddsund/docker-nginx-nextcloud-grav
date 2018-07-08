@@ -1,6 +1,7 @@
 #!/bin/sh
 
-GRAV_URL=https://getgrav.org/download/core/grav-admin/1.3.10
+GRAV_VERSION=1.4.6
+GRAV_URL=https://getgrav.org/download/core/grav-admin/${GRAV_VERSION}
 GRAV_FOLDER=grav-admin
 
 mkdir -p /usr/share/nginx/grav
