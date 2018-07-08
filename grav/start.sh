@@ -15,7 +15,7 @@ if [ ! -d /usr/share/nginx/grav/system ] ; then
     chown -R nginx:nginx /usr/share/nginx/grav
     sed -i "s/pwd_regex: .*/pwd_regex: '.{10,}'/g" /usr/share/nginx/grav/system/config/system.yaml
     sed -i 's/root \/home\/USER\/www\/html;/root \/usr\/share\/nginx\/grav;/g' /etc/nginx/conf.d/grav.conf
-    sed -i 's/fastcgi_pass unix:\/var\/run\/php5-fpm.sock;/fastcgi_pass unix:\/var\/run\/php7-fpm.sock;/g' /etc/nginx/conf.d/grav.conf
+    sed -i 's/fastcgi_pass unix:\/var\/run\/php\/php7.0-fpm.sock;/fastcgi_pass unix:\/var\/run\/php7-fpm.sock;/g' /etc/nginx/conf.d/grav.conf
     rm /etc/nginx/conf.d/default.conf
 fi
 
