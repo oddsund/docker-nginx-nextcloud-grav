@@ -12,3 +12,4 @@ COPY nextcloud.example.com /etc/nginx/vhost.d/nextcloud.example.com
 COPY nextcloud.example.com_location /etc/nginx/vhost.d/nextcloud.example.com_location
 
 CMD ["/usr/bin/supervisord"]
+
