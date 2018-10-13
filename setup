@@ -5,6 +5,7 @@ SUBDWWW="" #ex. "www"
 DOMAINTLD="" #ex. "yourdomain\.tld"
 EMAIL="" #ex. "your@email.tld"
 TYPE=""
+FROM_FILE=""
 while getopts c:w:d:e:h option
 do
 case "${option}"
@@ -13,7 +14,7 @@ c) SUBDCLOUD=${OPTARG//\./\\\.};;
 w) SUBDWWW=${OPTARG//\.//\\\.};;
 d) DOMAINTLD=${OPTARG//\./\\\.};;
 e) EMAIL=${OPTARG//\./\\\.};;
-t) TYPE=${OPTARG//\./\\\\.}
+t) TYPE=${OPTARG//\./\\\\.};;
 h) echo "Usage: ./setup -d example.com -e me@example.com [-c mycloud] [-w www]"
 	echo "-d Domain for the site"
 	echo "-e Email address used for Lets Encrypt"
@@ -26,6 +27,7 @@ done
 if [ -z "$TYPE" ]; then
 	echo "No type given, assuming nextcloud only"
 	TYPE="nextcloud"
+fi
 
 if [ -z "$SUBDCLOUD" ]; then
         echo "No cloud subdomain given, assuming cloud."
@@ -49,11 +51,18 @@ fi
 
 case "$TYPE"
 in
-"grav") mv docker-compose-grav.yml docker-compose.yml
-"nextcloud") mv docker-compose-nextcloud-only.yml docker-compose.yml
-"gatsby") mv docker-compose-gatsby.yml docker-compose.yml
+grav) 
+	FROM_FILE="docker-compose-grav.yml"
+	;;
+nextcloud) 
+	FROM_FILE="docker-compose-nextcloud-only.yml"
+	;;
+gatsby) 
+	FROM_FILE="docker-compose-gatsby.yml"
+	;;
 esac
 
+cp $FROM_FILE docker-compose.yml
 mv fpmcron/nextcloud.example.com fpmcron/$SUBDCLOUD.${DOMAINTLD//\\\./\.}
 mv fpmcron/nextcloud.example.com_location fpmcron/$SUBDCLOUD.${DOMAINTLD//\\\./\.}\_location
 find . -path ./.git -prune -o -type f -print | grep -vE "README|setup" | xargs sed -i "s/nextcloud\.example\.com/$SUBDCLOUD\.$DOMAINTLD/g"
