@@ -4,6 +4,7 @@ SUBDCLOUD="" #ex. "cloud"
 SUBDWWW="" #ex. "www"
 DOMAINTLD="" #ex. "yourdomain\.tld"
 EMAIL="" #ex. "your@email.tld"
+TYPE=""
 while getopts c:w:d:e:h option
 do
 case "${option}"
@@ -12,6 +13,7 @@ c) SUBDCLOUD=${OPTARG//\./\\\.};;
 w) SUBDWWW=${OPTARG//\.//\\\.};;
 d) DOMAINTLD=${OPTARG//\./\\\.};;
 e) EMAIL=${OPTARG//\./\\\.};;
+t) TYPE=${OPTARG//\./\\\\.}
 h) echo "Usage: ./setup -d example.com -e me@example.com [-c mycloud] [-w www]"
 	echo "-d Domain for the site"
 	echo "-e Email address used for Lets Encrypt"
@@ -20,6 +22,10 @@ h) echo "Usage: ./setup -d example.com -e me@example.com [-c mycloud] [-w www]"
    exit;;
 esac
 done
+
+if [ -z "$TYPE" ]; then
+	echo "No type given, assuming nextcloud only"
+	TYPE="nextcloud"
 
 if [ -z "$SUBDCLOUD" ]; then
         echo "No cloud subdomain given, assuming cloud."
@@ -40,6 +46,13 @@ if [ -z "$EMAIL" ]; then
         echo "No contact address given, aborting."
 	exit
 fi
+
+case "$TYPE"
+in
+"grav") mv docker-compose-grav.yml docker-compose.yml
+"nextcloud") mv docker-compose-nextcloud-only.yml docker-compose.yml
+"gatsby") mv docker-compose-gatsby.yml docker-compose.yml
+esac
 
 mv fpmcron/nextcloud.example.com fpmcron/$SUBDCLOUD.${DOMAINTLD//\\\./\.}
 mv fpmcron/nextcloud.example.com_location fpmcron/$SUBDCLOUD.${DOMAINTLD//\\\./\.}\_location
