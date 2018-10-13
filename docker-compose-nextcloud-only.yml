@@ -99,7 +99,6 @@ volumes:
   ? conf.d
   ? vhost.d
   ? html
-  ? grav
 
 networks:
   ? proxy-tier

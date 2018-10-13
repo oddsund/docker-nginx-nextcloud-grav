@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 services:
   db:
@@ -34,7 +34,7 @@ services:
     networks:
       - proxy-tier
       - db-tier
-  
+
   grav:
     build: ./grav
     restart: always
@@ -91,7 +91,6 @@ services:
 
   letsencrypt-companion:
     image: jrcs/letsencrypt-nginx-proxy-companion
-    #build: ./letsencrypt
     restart: always
     container_name: letsencrypt
     volumes:
@@ -110,14 +109,14 @@ services:
       - NGINX_DOCKER_GEN_CONTAINER=nginx-gen
 
 volumes:
-  db:
-  nextcloud:
-  certs:
-  conf.d:
-  vhost.d:
-  html:
-  grav:
+  ? db
+  ? nextcloud
+  ? certs
+  ? conf.d
+  ? vhost.d
+  ? html
+  ? grav
 
 networks:
-  proxy-tier:
-  db-tier:
+  ? proxy-tier
+  ? db-tier
