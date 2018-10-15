@@ -13,6 +13,8 @@ docker-compose up
 
 You can also pass the cloud and blog subdomains via the -c and -w parameters.
 
+If you want more then a basic nextcloud-only installation, specify it through the -t parameter. Note that only nextcloud- and grav+nextcloud are currently available.
+
 **For production**, the ACME_CA_URI must environment variable should be removed from the docker-compose file. If you don't, correct certificates will not be issued.
 
 ## How to add services

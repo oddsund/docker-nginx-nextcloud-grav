@@ -6,7 +6,7 @@ DOMAINTLD="" #ex. "yourdomain\.tld"
 EMAIL="" #ex. "your@email.tld"
 TYPE=""
 FROM_FILE=""
-while getopts c:w:d:e:h option
+while getopts c:w:d:e:t:h option
 do
 case "${option}"
 in
@@ -15,11 +15,12 @@ w) SUBDWWW=${OPTARG//\.//\\\.};;
 d) DOMAINTLD=${OPTARG//\./\\\.};;
 e) EMAIL=${OPTARG//\./\\\.};;
 t) TYPE=${OPTARG//\./\\\\.};;
-h) echo "Usage: ./setup -d example.com -e me@example.com [-c mycloud] [-w www]"
+h) echo "Usage: ./setup -d example.com -e me@example.com [-c mycloud] [-w www] [-t type]"
 	echo "-d Domain for the site"
 	echo "-e Email address used for Lets Encrypt"
 	echo "-c Cloud subdomain"
 	echo "-w WWW subdomain"
+	echo "-t type of installation"
    exit;;
 esac
 done
