@@ -29,7 +29,7 @@ services:
       - LETSENCRYPT_HOST=nextcloud.example.com
       - LETSENCRYPT_EMAIL=me@example.com
     env_file:
-      - db.env
+      - app.env
     depends_on:
       - db
     networks:
