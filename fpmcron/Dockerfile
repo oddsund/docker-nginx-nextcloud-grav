@@ -11,8 +11,5 @@ COPY nextcloud.example.com /etc/nginx/vhost.d/nextcloud.example.com
 
 COPY nextcloud.example.com_location /etc/nginx/vhost.d/nextcloud.example.com_location
 
-RUN sed -Ei 's/^if expr \"\$1\" : \"apache\".*; then$//g' /entrypoint.sh && \
-  sed -ri 's/^fi$//' /entrypoint.sh
-
 CMD ["/usr/bin/supervisord"]
 
