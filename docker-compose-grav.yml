@@ -20,6 +20,7 @@ services:
       - nextcloud:/var/www/html
       - vhost.d:/etc/nginx/vhost.d
     environment:
+      - NEXTCLOUD_UPDATE=1
       - HSTS=off
       - POSTGRES_HOST=db
       - VIRTUAL_HOST=nextcloud.example.com
